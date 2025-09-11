@@ -21,7 +21,7 @@
 ---
 
 ## 🙋‍♂️ About Me
-- 📖 I’m currently learning **Reinforcement Learning, SEO Optimization, and Networks and Encryption**  
+- 📖 I’m currently learning **Reinforcement Learning, SEO Optimization, and Networks & Encryption**  
 - 📫 Reach me at: For dev -- **xnttxunknownx@gmail.com** For Business -- marcsawaya2006@gmail.com
 
 ---
@@ -29,20 +29,92 @@
 ## 🛠 Tech Stack
 
 <p>
-  <img src="https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
-  <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
-  <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
-  <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white" />
-  <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
-  <img src="https://img.shields.io/badge/firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" />
-  <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" />
-  <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
-  <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white" />
-  <img src="https://img.shields.io/badge/express.js-404D59?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white" />
-  <img src="https://img.shields.io/badge/postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" />
-  <img src="https://img.shields.io/badge/sql-003B57?style=for-the-badge&logo=postgresql&logoColor=white" />
+  <!-- CSS (css3 -> css) -->
+  <a href="https://developer.mozilla.org/docs/Web/CSS" target="_blank" rel="noopener">
+    <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS" />
+  </a>
+
+  <!-- HTML (html5 -> html) -->
+  <a href="https://developer.mozilla.org/docs/Web/HTML" target="_blank" rel="noopener">
+    <img src="https://img.shields.io/badge/html-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML" />
+  </a>
+
+  <!-- JavaScript -->
+  <a href="https://developer.mozilla.org/docs/Web/JavaScript" target="_blank" rel="noopener">
+    <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
+  </a>
+
+  <!-- Java -->
+  <a href="https://www.oracle.com/java/" target="_blank" rel="noopener">
+    <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white" alt="Java" />
+  </a>
+
+  <!-- Python -->
+  <a href="https://www.python.org/" target="_blank" rel="noopener">
+    <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
+  </a>
+
+  <!-- Firebase -> Drupal -->
+  <a href="https://www.drupal.org/" target="_blank" rel="noopener">
+    <img src="https://img.shields.io/badge/drupal-0678BE?style=for-the-badge&logo=drupal&logoColor=white" alt="Drupal" />
+  </a>
+
+  <!-- Node.js -->
+  <a href="https://nodejs.org/" target="_blank" rel="noopener">
+    <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js" />
+  </a>
+
+  <!-- React -->
+  <a href="https://react.dev/" target="_blank" rel="noopener">
+    <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" />
+  </a>
+
+  <!-- MySQL -->
+  <a href="https://www.mysql.com/" target="_blank" rel="noopener">
+    <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL" />
+  </a>
+
+  <!-- Express.js -> Next.js -->
+  <a href="https://nextjs.org/" target="_blank" rel="noopener">
+    <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js" />
+  </a>
+
+  <!-- Git -->
+  <a href="https://git-scm.com/" target="_blank" rel="noopener">
+    <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git" />
+  </a>
+
+  <!-- Postman -> Stata -->
+  <a href="https://www.stata.com/" target="_blank" rel="noopener">
+    <img src="https://img.shields.io/badge/stata-215E9E?style=for-the-badge&logo=stata&logoColor=white" alt="Stata" />
+  </a>
+
+  <!-- SQL -->
+  <a href="https://developer.mozilla.org/docs/Glossary/SQL" target="_blank" rel="noopener">
+    <img src="https://img.shields.io/badge/sql-003B57?style=for-the-badge&logo=postgresql&logoColor=white" alt="SQL" />
+  </a>
+
+  <!-- Added: Kotlin -->
+  <a href="https://kotlinlang.org/" target="_blank" rel="noopener">
+    <img src="https://img.shields.io/badge/kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white" alt="Kotlin" />
+  </a>
+
+  <!-- Added: PyTorch -->
+  <a href="https://pytorch.org/" target="_blank" rel="noopener">
+    <img src="https://img.shields.io/badge/pytorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" alt="PyTorch" />
+  </a>
+
+  <!-- Added: TensorFlow -->
+  <a href="https://www.tensorflow.org/" target="_blank" rel="noopener">
+    <img src="https://img.shields.io/badge/tensorflow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white" alt="TensorFlow" />
+  </a>
+
+  <!-- Added: R -->
+  <a href="https://www.r-project.org/" target="_blank" rel="noopener">
+    <img src="https://img.shields.io/badge/r-276DC3?style=for-the-badge&logo=r&logoColor=white" alt="R" />
+  </a>
 </p>
+
 
 ---
 
