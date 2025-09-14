@@ -12,7 +12,7 @@
   <a href="https://leetcode.com/u/marcmsawaya/">
     <img src="https://img.shields.io/badge/LeetCode-orange?style=for-the-badge&logo=leetcode" />
   </a>
-  <a href="https://gitlab.com/your-username" target="_blank" rel="noopener noreferrer">
+  <a href="https://gitlab.com/marcmsawaya" target="_blank" rel="noopener noreferrer">
   <img alt="GitLab" src="https://img.shields.io/badge/GitLab-FC6D26?style=for-the-badge&logo=gitlab&logoColor=white" />
 </a>
 
