@@ -3,7 +3,7 @@
   <img src="https://media.giphy.com/media/L1R1tvI9svkIWwpVYr/giphy.gif" width="400"/>
 </p>
 
-<h1 align="center">Hala bel batal 🇱🇧</h1>
+<h1 align="center">Welcome To Marc Sawaya's GitHub Account</h1>
 
 <p align="center">
   <a href="https://www.linkedin.com/in/marc-sawaya-29b65b31a/">
