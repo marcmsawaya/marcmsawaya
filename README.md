@@ -113,6 +113,12 @@
   <a href="https://www.r-project.org/" target="_blank" rel="noopener">
     <img src="https://img.shields.io/badge/r-276DC3?style=for-the-badge&logo=r&logoColor=white" alt="R" />
   </a>
+
+  <!-- Added: Docker -->
+<a href="https://www.docker.com/" target="_blank" rel="noopener">
+  <img src="https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
+</a>
+
 </p>
 
 
