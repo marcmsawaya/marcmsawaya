@@ -123,6 +123,12 @@
   <img src="https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
 </a>
 
+<!-- Added: Supabase -->
+<a href="https://supabase.com" target="_blank" rel="noopener">
+  <img src="https://img.shields.io/badge/supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase" />
+</a>
+
+
 </p>
 
 
