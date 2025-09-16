@@ -128,6 +128,12 @@
   <img src="https://img.shields.io/badge/supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase" />
 </a>
 
+<!-- Added: LaTeX -->
+<a href="https://www.latex-project.org/" target="_blank" rel="noopener">
+  <img src="https://img.shields.io/badge/LaTeX-008080?style=for-the-badge&logo=latex&logoColor=white" alt="LaTeX" />
+</a>
+
+
 
 </p>
 
