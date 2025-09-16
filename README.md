@@ -26,7 +26,7 @@
 
 ## 🙋‍♂️ About Me
 - 📖 I’m currently learning **Reinforcement Learning, Agentic AI, and Networks & Encryption**  
-- 📫 Reach me at: Dev Email -- **marcmsawaya@icloud.com** Personal -- marcsawaya2006@gmail.com (Feel free to contact me any time ! )
+- 📫 Reach me at: Dev Email -- **marcmsawaya@icloud.com** | Personal -- marcsawaya2006@gmail.com (Feel free to contact me any time ! )
 
 ---
 
