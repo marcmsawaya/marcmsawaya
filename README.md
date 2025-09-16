@@ -129,7 +129,7 @@
 </a>
 
 <!-- Added: LaTeX -->
-<a href="https://www.latex-project.org/" target="_blank" rel="noopener">
+<a href="https://www.overleaf.com" target="_blank" rel="noopener">
   <img src="https://img.shields.io/badge/LaTeX-008080?style=for-the-badge&logo=latex&logoColor=white" alt="LaTeX" />
 </a>
 
