@@ -142,10 +142,21 @@
 
 ## 📊 GitHub Stats
 
-  ### Most Used Languages
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=marcmsawaya&layout=compact&langs_count=8&exclude_repo=dotfiles,configs&hide=Jupyter%20Notebook,Makefile&cache_seconds=86400)](https://github.com/anuraghazra/github-readme-stats)
+<!-- Center them and keep on one line -->
+<p align="center">
+  <!-- GitHub Stats -->
+  <img
+    src="https://github-readme-stats.vercel.app/api?username=marcmsawaya&show_icons=true&include_all_commits=true&count_private=true&hide_border=true&bg_color=000000&title_color=FFFFFF&text_color=FFFFFF&icon_color=FFFFFF&v=2"
+    height="165"
+    alt="GitHub stats"
+  />
+  <!-- Top Languages -->
+  <img
+    src="https://github-readme-stats.vercel.app/api/top-langs/?username=marcmsawaya&layout=compact&langs_count=8&hide_border=true&bg_color=000000&title_color=FFFFFF&text_color=FFFFFF&v=2"
+    height="165"
+    alt="Top languages"
+  />
+</p>
 
-### GitHub Stats
-![Marc's GitHub stats](https://github-readme-stats.vercel.app/api?username=marcmsawaya&show_icons=true&include_all_commits=true&count_private=true&cache_seconds=86400)
 
 ---
