@@ -162,7 +162,4 @@
 
 [![GitHub Streak](https://github-readme-streak-stats.herokuapp.com?user=marcmsawaya&theme=dark&background=000000)](https://git.io/streak-stats)
 
-![Made with Love](https://img.shields.io/badge/Made%20with-Love-ff69b4)
-![Math Enthusiast](https://img.shields.io/badge/Math-∞-blue)
-
 ---
