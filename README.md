@@ -7,8 +7,11 @@
 
 </p>
 
+
 <p align="center">
-  <img src="https://komarev.com/ghpvc/?username=marcmsawaya&style=for-the-badge&color=blue" alt="profile views"/>
+  [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](YOUR_LINKEDIN_URL)
+[![LeetCode](https://img.shields.io/badge/-LeetCode-FFA116?style=for-the-badge&logo=LeetCode&logoColor=black)](YOUR_LEETCODE_URL)
+  <img src="https://komarev.com/ghpvc/?username=marcmsawaya&style=for-the-badge&color=purple" alt="profile views"/>
 </p>
 
 ---
