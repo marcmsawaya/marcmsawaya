@@ -15,7 +15,7 @@
 
 [![GitLab](https://img.shields.io/badge/GitLab-FC6D26?style=for-the-badge&logo=gitlab&logoColor=white)](https://gitlab.com/marcmsawaya)
 
-<img src="https://komarev.com/ghpvc/?username=marcmsawaya&style=for-the-badge&color=red" alt="profile views"/>
+<img src="https://komarev.com/ghpvc/?username=marcmsawaya&style=for-the-badge&color=green" alt="profile views"/>
 
 </p>
 
