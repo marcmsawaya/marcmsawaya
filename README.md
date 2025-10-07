@@ -144,12 +144,7 @@
     alt="GitHub stats"
   />
   <!-- Top Languages -->
-  <img
-    src="https://github-readme-stats.vercel.app/api/top-langs/?username=marcmsawaya&layout=compact&langs_count=8&hide_border=true&bg_color=000000&title_color=FFFFFF&text_color=FFFFFF&v=2"
-    height="165"
-    alt="Top languages"
-  />
-</p>
+  
 
 [![Marc's github activity graph](https://github-readme-activity-graph.vercel.app/graph?username=marcmsawaya&bg_color=000000&color=ffffff&line=00e676&point=ffffff&area=true&hide_border=true)](https://github.com/ashutosh00710/github-readme-activity-graph)
 
