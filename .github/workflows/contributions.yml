@@ -1,0 +1,51 @@
+name: Contribution calendar
+
+# Regenerates the animated contribution calendar. Runs daily so the grid stays
+# current, and on push to main so the image exists as soon as this lands rather
+# than waiting for the first scheduled run.
+
+on:
+  schedule:
+    - cron: "17 4 * * *"   # daily, off the hour to avoid the cron stampede
+  push:
+    branches: [main]
+    paths:
+      - scripts/contrib_svg.py
+      - .github/workflows/contributions.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: contributions
+  cancel-in-progress: true
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Render the calendar
+        run: |
+          mkdir -p assets
+          python3 scripts/contrib_svg.py --user "${{ github.repository_owner }}" \
+            --out assets/contributions.svg
+
+      - name: Commit if it changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/contributions.svg
+          # Nothing to do on a day with no new contributions — keep the history clean
+          if git diff --staged --quiet; then
+            echo "calendar unchanged"
+            exit 0
+          fi
+          git commit -m "chore: refresh contribution calendar"
+          git push

@@ -1,16 +1,25 @@
 <div align="center">
 
 ```
-                                   marc@github
-   ╔╦╗╔═╗╦═╗╔═╗                    ─────────────────────────────────────────────
-   ║║║╠═╣╠╦╝║                      Role        Computer Science + Economics
-   ╩ ╩╩ ╩╩╚═╚═╝                    School      Northeastern University
-   ╔═╗╔═╗╦ ╦╔═╗╦ ╦╔═╗              Learning    Go · Reinforcement Learning
-   ╚═╗╠═╣║║║╠═╣╚╦╝╠═╣                          Networks & Encryption
-   ╚═╝╩ ╩╚╩╝╩ ╩ ╩ ╩ ╩              Building    marcsawaya.info · 8 web properties
-                                   Contest     ICPC competitor · MLH
-                                   Editor      you're looking at it
-                                   Contact     marcmsawaya@icloud.com
+..........              ..........
+       .  .-==+*+++*+=:.   .  ....
+        .+#@@@@@@@@@@@@%*-.  .  ..
+      .+%@@%@@@@@@%%@%%@@@%+.        marc@github
+      +@@@@@%%%%@%@@@@%%%%@@#:       ──────────────────────────────────────────────
+     .%@@%*=====+++*++*#%%%%%-       Role        Computer Science + Economics
+      *@*-..::--===--::.=%%%%.       School      Northeastern University
+      -@*-==++=-=++**=-::#%@*        Learning    Go · Reinforcement Learning
+       +*-**%#+--+***=-:.*#+-                    Networks & Encryption
+      :--::------:-==--:.:+*=.       Building    marcsawaya.info · 8 web properties
+       -=::::--=--==-::..:**:        Contest     ICPC competitor · MLH
+       .--:---=++=-==:..:--.         Contact     marcmsawaya@icloud.com
+         .-----=+=---::.::
+          .-----===::::::.           Shell       bash · zsh
+           .=++***+=-::::+:          Editor      you're looking at it
+           =--=++==-=+*#%@+
+          +@=:---==#%@%%%%%*:
+          #@#-----*@@@%%%%%@%*-.
+       :+#%@@+=---#@@@@@@@@@@@@%*-
 ```
 
 [![LeetCode](https://img.shields.io/badge/-LeetCode-FFA116?style=for-the-badge&logo=LeetCode&logoColor=black)](https://leetcode.com/u/marcmsawaya/) [![GitLab](https://img.shields.io/badge/GitLab-FC6D26?style=for-the-badge&logo=gitlab&logoColor=white)](https://gitlab.com/marcmsawaya) [![ICPC](https://img.shields.io/badge/ICPC-Competitor-blue?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMMiA3TDEyIDEyTDIyIDdMMTIgMloiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0yIDEyTDEyIDE3TDIyIDEyIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiLz4KPC9zdmc+)](https://icpc.global/private/profile/1257288) [![MLH](https://img.shields.io/badge/MLH-PROFILE-FF6B35?style=for-the-badge&logo=major-league-hacking&logoColor=white)](https://my.mlh.io/marcsawaya)
@@ -146,6 +155,10 @@
 ---
 
 ### `marc@github:~$ ./contributions.sh`
+
+<p align="center">
+  <img src="./assets/contributions.svg" alt="Contribution calendar — the squares load in left to right" />
+</p>
 
 <p align="center">
   <!-- GitHub Stats -->
