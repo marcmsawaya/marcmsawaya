@@ -1,0 +1,474 @@
+{
+  "title": "Istio — Memory & OOM Risk",
+  "description": "Memory saturation, growth and OOMKill risk for istio-proxy sidecars, istio ingress/egress gateways and istiod. Scoped by cluster / namespace / pod template variables.",
+  "layout_type": "ordered",
+  "reflow_type": "fixed",
+  "template_variables": [
+    {
+      "name": "cluster",
+      "prefix": "kube_cluster_name",
+      "available_values": [],
+      "defaults": ["*"]
+    },
+    {
+      "name": "namespace",
+      "prefix": "kube_namespace",
+      "available_values": [],
+      "defaults": ["*"]
+    },
+    {
+      "name": "env",
+      "prefix": "env",
+      "available_values": [],
+      "defaults": ["*"]
+    }
+  ],
+  "widgets": [
+    {
+      "definition": {
+        "type": "note",
+        "content": "**Istio memory health.** Top row is the at-a-glance state: worst sidecar saturation, worst istiod saturation, and OOMKills in the last 4h.\n\nSaturation = `working_set / limit`. Working set is the number the kubelet's OOM killer actually acts on, so it is the right numerator — `container.memory.usage` includes reclaimable page cache and will read high without any real risk.\n\nIf saturation sits above ~85% on a sidecar, either raise `sidecar.istio.io/proxyMemoryLimit` or cut the config pushed to that proxy (see the *Config size* row — proxy memory scales with the number of services/endpoints in its config, so a missing `Sidecar` resource is the usual root cause).",
+        "background_color": "blue",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "top",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      },
+      "layout": { "x": 0, "y": 0, "width": 12, "height": 3 }
+    },
+    {
+      "definition": {
+        "type": "query_value",
+        "title": "Worst istio-proxy memory saturation",
+        "title_size": "16",
+        "title_align": "left",
+        "autoscale": true,
+        "precision": 1,
+        "timeseries_background": { "type": "area" },
+        "requests": [
+          {
+            "response_format": "scalar",
+            "queries": [
+              {
+                "name": "used",
+                "data_source": "metrics",
+                "query": "max:kubernetes.memory.working_set{kube_container_name:istio-proxy,$cluster,$namespace,$env} by {pod_name}",
+                "aggregator": "last"
+              },
+              {
+                "name": "limit",
+                "data_source": "metrics",
+                "query": "max:kubernetes.memory.limits{kube_container_name:istio-proxy,$cluster,$namespace,$env} by {pod_name}",
+                "aggregator": "last"
+              }
+            ],
+            "formulas": [
+              {
+                "formula": "(used / limit) * 100",
+                "number_format": { "unit": { "type": "canonical_unit", "unit_name": "percent" } }
+              }
+            ],
+            "conditional_formats": [
+              { "comparator": ">=", "value": 90, "palette": "white_on_red" },
+              { "comparator": ">=", "value": 80, "palette": "white_on_yellow" },
+              { "comparator": "<", "value": 80, "palette": "white_on_green" }
+            ]
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 3, "width": 4, "height": 3 }
+    },
+    {
+      "definition": {
+        "type": "query_value",
+        "title": "istiod memory saturation",
+        "title_size": "16",
+        "title_align": "left",
+        "autoscale": true,
+        "precision": 1,
+        "timeseries_background": { "type": "area" },
+        "requests": [
+          {
+            "response_format": "scalar",
+            "queries": [
+              {
+                "name": "used",
+                "data_source": "metrics",
+                "query": "max:kubernetes.memory.working_set{kube_container_name:discovery,$cluster,$env} by {pod_name}",
+                "aggregator": "last"
+              },
+              {
+                "name": "limit",
+                "data_source": "metrics",
+                "query": "max:kubernetes.memory.limits{kube_container_name:discovery,$cluster,$env} by {pod_name}",
+                "aggregator": "last"
+              }
+            ],
+            "formulas": [
+              {
+                "formula": "(used / limit) * 100",
+                "number_format": { "unit": { "type": "canonical_unit", "unit_name": "percent" } }
+              }
+            ],
+            "conditional_formats": [
+              { "comparator": ">=", "value": 90, "palette": "white_on_red" },
+              { "comparator": ">=", "value": 80, "palette": "white_on_yellow" },
+              { "comparator": "<", "value": 80, "palette": "white_on_green" }
+            ]
+          }
+        ]
+      },
+      "layout": { "x": 4, "y": 3, "width": 4, "height": 3 }
+    },
+    {
+      "definition": {
+        "type": "query_value",
+        "title": "Istio OOMKills (last 4h)",
+        "title_size": "16",
+        "title_align": "left",
+        "autoscale": false,
+        "precision": 0,
+        "requests": [
+          {
+            "response_format": "scalar",
+            "queries": [
+              {
+                "name": "oom",
+                "data_source": "metrics",
+                "query": "sum:kubernetes_state.container.status_report.count.oomkilled{kube_container_name IN (istio-proxy,discovery,istio-init),$cluster,$namespace,$env}.as_count()",
+                "aggregator": "sum"
+              }
+            ],
+            "formulas": [{ "formula": "oom" }],
+            "conditional_formats": [
+              { "comparator": ">=", "value": 1, "palette": "white_on_red" },
+              { "comparator": "<", "value": 1, "palette": "white_on_green" }
+            ]
+          }
+        ]
+      },
+      "layout": { "x": 8, "y": 3, "width": 4, "height": 3 }
+    },
+    {
+      "definition": {
+        "type": "timeseries",
+        "title": "istio-proxy working set vs limit — by pod",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "max", "value"],
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "name": "ws",
+                "data_source": "metrics",
+                "query": "avg:kubernetes.memory.working_set{kube_container_name:istio-proxy,$cluster,$namespace,$env} by {pod_name}"
+              }
+            ],
+            "formulas": [{ "formula": "ws", "alias": "working set" }],
+            "display_type": "line",
+            "style": { "palette": "dog_classic", "line_type": "solid", "line_width": "normal" }
+          },
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "name": "lim",
+                "data_source": "metrics",
+                "query": "avg:kubernetes.memory.limits{kube_container_name:istio-proxy,$cluster,$namespace,$env} by {pod_name}"
+              }
+            ],
+            "formulas": [{ "formula": "lim", "alias": "limit" }],
+            "display_type": "line",
+            "style": { "palette": "warm", "line_type": "dashed", "line_width": "thin" }
+          }
+        ],
+        "yaxis": { "scale": "linear", "min": "auto", "max": "auto", "include_zero": true }
+      },
+      "layout": { "x": 0, "y": 6, "width": 6, "height": 4 }
+    },
+    {
+      "definition": {
+        "type": "toplist",
+        "title": "Top 20 istio-proxy sidecars by memory saturation",
+        "title_size": "16",
+        "title_align": "left",
+        "requests": [
+          {
+            "response_format": "scalar",
+            "queries": [
+              {
+                "name": "used",
+                "data_source": "metrics",
+                "query": "avg:kubernetes.memory.working_set{kube_container_name:istio-proxy,$cluster,$namespace,$env} by {kube_namespace,pod_name}",
+                "aggregator": "last"
+              },
+              {
+                "name": "limit",
+                "data_source": "metrics",
+                "query": "avg:kubernetes.memory.limits{kube_container_name:istio-proxy,$cluster,$namespace,$env} by {kube_namespace,pod_name}",
+                "aggregator": "last"
+              }
+            ],
+            "formulas": [
+              {
+                "formula": "(used / limit) * 100",
+                "limit": { "count": 20, "order": "desc" },
+                "number_format": { "unit": { "type": "canonical_unit", "unit_name": "percent" } }
+              }
+            ],
+            "conditional_formats": [
+              { "comparator": ">=", "value": 90, "palette": "white_on_red" },
+              { "comparator": ">=", "value": 80, "palette": "white_on_yellow" }
+            ]
+          }
+        ]
+      },
+      "layout": { "x": 6, "y": 6, "width": 6, "height": 4 }
+    },
+    {
+      "definition": {
+        "type": "timeseries",
+        "title": "Aggregate istio-proxy memory by namespace",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "max", "value"],
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "name": "ws",
+                "data_source": "metrics",
+                "query": "sum:kubernetes.memory.working_set{kube_container_name:istio-proxy,$cluster,$namespace,$env} by {kube_namespace}"
+              }
+            ],
+            "formulas": [{ "formula": "ws" }],
+            "display_type": "area",
+            "style": { "palette": "cool", "line_type": "solid", "line_width": "normal" }
+          }
+        ],
+        "yaxis": { "scale": "linear", "min": "auto", "max": "auto", "include_zero": true }
+      },
+      "layout": { "x": 0, "y": 10, "width": 6, "height": 4 }
+    },
+    {
+      "definition": {
+        "type": "timeseries",
+        "title": "istiod (discovery) memory — working set vs limit",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "max", "value"],
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "name": "ws",
+                "data_source": "metrics",
+                "query": "avg:kubernetes.memory.working_set{kube_container_name:discovery,$cluster,$env} by {pod_name}"
+              }
+            ],
+            "formulas": [{ "formula": "ws", "alias": "working set" }],
+            "display_type": "line",
+            "style": { "palette": "dog_classic", "line_type": "solid", "line_width": "normal" }
+          },
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "name": "lim",
+                "data_source": "metrics",
+                "query": "avg:kubernetes.memory.limits{kube_container_name:discovery,$cluster,$env} by {pod_name}"
+              }
+            ],
+            "formulas": [{ "formula": "lim", "alias": "limit" }],
+            "display_type": "line",
+            "style": { "palette": "warm", "line_type": "dashed", "line_width": "thin" }
+          }
+        ],
+        "yaxis": { "scale": "linear", "min": "auto", "max": "auto", "include_zero": true }
+      },
+      "layout": { "x": 6, "y": 10, "width": 6, "height": 4 }
+    },
+    {
+      "definition": {
+        "type": "timeseries",
+        "title": "Memory growth rate — % change over 1h (leak detector)",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "max", "value"],
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "name": "ws",
+                "data_source": "metrics",
+                "query": "avg:kubernetes.memory.working_set{kube_container_name:istio-proxy,$cluster,$namespace,$env} by {pod_name}"
+              }
+            ],
+            "formulas": [{ "formula": "per_hour(ws)", "alias": "bytes/hour" }],
+            "display_type": "line",
+            "style": { "palette": "orange", "line_type": "solid", "line_width": "normal" }
+          }
+        ],
+        "markers": [
+          { "value": "y = 0", "display_type": "ok dashed", "label": "flat" }
+        ],
+        "yaxis": { "scale": "linear", "min": "auto", "max": "auto", "include_zero": true }
+      },
+      "layout": { "x": 0, "y": 14, "width": 6, "height": 4 }
+    },
+    {
+      "definition": {
+        "type": "timeseries",
+        "title": "OOMKills & container restarts",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["sum", "max", "value"],
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "name": "oom",
+                "data_source": "metrics",
+                "query": "sum:kubernetes_state.container.status_report.count.oomkilled{kube_container_name IN (istio-proxy,discovery),$cluster,$namespace,$env} by {kube_namespace,kube_container_name}.as_count()"
+              }
+            ],
+            "formulas": [{ "formula": "oom", "alias": "oomkilled" }],
+            "display_type": "bars",
+            "style": { "palette": "warm", "line_type": "solid", "line_width": "normal" }
+          },
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "name": "restarts",
+                "data_source": "metrics",
+                "query": "sum:kubernetes.containers.restarts{kube_container_name IN (istio-proxy,discovery),$cluster,$namespace,$env} by {kube_namespace,kube_container_name}"
+              }
+            ],
+            "formulas": [{ "formula": "diff(restarts)", "alias": "restarts" }],
+            "display_type": "bars",
+            "style": { "palette": "grey", "line_type": "solid", "line_width": "normal" }
+          }
+        ],
+        "yaxis": { "scale": "linear", "min": "0", "max": "auto", "include_zero": true }
+      },
+      "layout": { "x": 6, "y": 14, "width": 6, "height": 4 }
+    },
+    {
+      "definition": {
+        "type": "note",
+        "content": "**Config size — the usual cause of sidecar memory growth.** Envoy holds the whole mesh config in memory. Without a `Sidecar` resource narrowing `egress.hosts`, every proxy gets every service and endpoint in the mesh, so memory scales with mesh size rather than with the workload. Watch these two alongside the memory graphs: a step change here that precedes a step change in memory is your answer.\n\nThese panels need the Istio integration (`istio.*`) enabled. If they are empty, confirm the metric names in Metrics Explorer — they vary between the Istio telemetry v1 and v2 pipelines.",
+        "background_color": "yellow",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "top",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      },
+      "layout": { "x": 0, "y": 18, "width": 12, "height": 2 }
+    },
+    {
+      "definition": {
+        "type": "timeseries",
+        "title": "istiod xDS pushes & connected proxies",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "max", "value"],
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "name": "conn",
+                "data_source": "metrics",
+                "query": "sum:istio.pilot.xds{$cluster,$env} by {pod_name}"
+              }
+            ],
+            "formulas": [{ "formula": "conn", "alias": "connected proxies" }],
+            "display_type": "line",
+            "style": { "palette": "cool", "line_type": "solid", "line_width": "normal" }
+          },
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "name": "push",
+                "data_source": "metrics",
+                "query": "sum:istio.pilot.xds.pushes.count{$cluster,$env} by {type}"
+              }
+            ],
+            "formulas": [{ "formula": "push", "alias": "xds pushes" }],
+            "display_type": "bars",
+            "style": { "palette": "purple", "line_type": "solid", "line_width": "normal" }
+          }
+        ],
+        "yaxis": { "scale": "linear", "min": "auto", "max": "auto", "include_zero": true }
+      },
+      "layout": { "x": 0, "y": 20, "width": 6, "height": 4 }
+    },
+    {
+      "definition": {
+        "type": "timeseries",
+        "title": "istiod Go heap (istio.go.memstats.*)",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "max", "value"],
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "name": "heap",
+                "data_source": "metrics",
+                "query": "avg:istio.go.memstats.heap.inuse.bytes{$cluster,$env} by {pod_name}"
+              }
+            ],
+            "formulas": [{ "formula": "heap", "alias": "heap in use" }],
+            "display_type": "line",
+            "style": { "palette": "green", "line_type": "solid", "line_width": "normal" }
+          },
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "name": "sys",
+                "data_source": "metrics",
+                "query": "avg:istio.process.resident.memory.bytes{$cluster,$env} by {pod_name}"
+              }
+            ],
+            "formulas": [{ "formula": "sys", "alias": "RSS" }],
+            "display_type": "line",
+            "style": { "palette": "grey", "line_type": "dotted", "line_width": "normal" }
+          }
+        ],
+        "yaxis": { "scale": "linear", "min": "auto", "max": "auto", "include_zero": true }
+      },
+      "layout": { "x": 6, "y": 20, "width": 6, "height": 4 }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "[Istio] istiod memory saturation > 85% of limit — {{pod_name.name}}",
+  "type": "query alert",
+  "query": "avg(last_10m):( avg:kubernetes.memory.working_set{kube_container_name:discovery} by {kube_cluster_name,pod_name} / avg:kubernetes.memory.limits{kube_container_name:discovery} by {kube_cluster_name,pod_name} ) * 100 > 85",
+  "message": "{{#is_warning}}\n:warning: **istiod is at {{value}}% of its memory limit.**\n{{/is_warning}}\n{{#is_alert}}\n:rotating_light: **istiod is at {{value}}% of its memory limit.**\n{{/is_alert}}\n\nPod: `{{pod_name.name}}`\nCluster: `{{kube_cluster_name.name}}`\n\nThis is a lower threshold than the sidecar monitor on purpose. If istiod is OOMKilled, xDS pushes stop mesh-wide: existing proxies keep serving their last-known config, but every new pod comes up without config and every route or policy change silently fails to propagate. The blast radius is the whole mesh, so it is worth waking up for earlier.\n\n**Triage**\n1. istiod memory scales with the number of connected proxies and the size of the config it computes. Check the *xDS pushes & connected proxies* panel for a step change that lines up with the memory climb.\n2. A push storm — high `istio.pilot.xds.pushes.count` — usually means something is churning endpoints (a crashlooping deployment, an HPA flapping, a controller rewriting Services).\n3. Scale istiod horizontally before vertically; it shards cleanly by connected proxy.\n\n{{#is_recovery}}:white_check_mark: istiod memory back under threshold.{{/is_recovery}}\n\n@slack-REPLACE-ME",
+  "tags": ["service:istio", "component:istiod", "team:REPLACE-ME", "source:datadog-monitors-as-code"],
+  "priority": 1,
+  "options": {
+    "thresholds": { "critical": 85, "warning": 75 },
+    "notify_no_data": true,
+    "no_data_timeframe": 20,
+    "notify_audit": false,
+    "require_full_window": false,
+    "renotify_interval": 30,
+    "escalation_message": "istiod {{pod_name.name}} is still above its memory threshold. Mesh config propagation is at risk.",
+    "evaluation_delay": 60,
+    "new_group_delay": 300,
+    "include_tags": true,
+    "notification_preset_name": "hide_handles"
+  }
+}
