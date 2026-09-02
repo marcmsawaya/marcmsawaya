@@ -1,0 +1,41 @@
+{
+  "_note": "Copy to identity/private.json and fill it in. identity/private.json is gitignored and MUST stay that way — this repository is your public GitHub profile. Nothing here ever reaches CONTEXT.md, which is committed. These values appear only in an application brief, only when you pass --include-private, and those briefs are written to a gitignored directory. The shape below is a suggestion, not a schema: add or remove keys freely, since the renderer walks whatever structure it finds and skips empty values.",
+
+  "person": {
+    "phone": "",
+    "address": "",
+    "date_of_birth": "",
+    "work_authorization_detail": ""
+  },
+
+  "education": {
+    "gpa": "",
+    "sat_act": "",
+    "transcript_notes": ""
+  },
+
+  "preferences": {
+    "compensation_target": "",
+    "compensation_floor": "",
+    "notes": "e.g. companies not to apply to, a deadline you are holding an offer against"
+  },
+
+  "demographics": {
+    "_note": "Only for voluntary EEO questions. Leave blank to have generated answers decline to state, which is always a valid response.",
+    "veteran_status": "",
+    "disability_status": "",
+    "race_ethnicity": "",
+    "gender": ""
+  },
+
+  "references": [
+    {
+      "name": "",
+      "relationship": "",
+      "org": "",
+      "email": "",
+      "phone": "",
+      "ok_to_contact": false
+    }
+  ]
+}
