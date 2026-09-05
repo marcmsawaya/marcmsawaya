@@ -1,0 +1,21 @@
+{
+  "name": "[Istio] istio-proxy memory saturation > 90% of limit — {{kube_namespace.name}}/{{pod_name.name}}",
+  "type": "query alert",
+  "query": "avg(last_10m):( avg:kubernetes.memory.working_set{kube_container_name:istio-proxy} by {kube_cluster_name,kube_namespace,pod_name} / avg:kubernetes.memory.limits{kube_container_name:istio-proxy} by {kube_cluster_name,kube_namespace,pod_name} ) * 100 > 90",
+  "message": "{{#is_warning}}\n:warning: **istio-proxy sidecar is at {{value}}% of its memory limit.**\n{{/is_warning}}\n{{#is_alert}}\n:rotating_light: **istio-proxy sidecar is at {{value}}% of its memory limit and is close to being OOMKilled.**\n{{/is_alert}}\n\nPod: `{{kube_namespace.name}}/{{pod_name.name}}`\nCluster: `{{kube_cluster_name.name}}`\n\nWhen the sidecar is OOMKilled the pod loses its mesh proxy, so all inbound and outbound traffic for that workload fails until the container restarts.\n\n**Triage**\n1. Check whether this is one pod or the whole mesh — the *Top 20 sidecars* panel on the [Istio — Memory & OOM Risk] dashboard answers that. Mesh-wide means a config problem, one pod means a workload problem.\n2. Mesh-wide: check config size. Envoy holds the full mesh config in memory, so without a `Sidecar` resource limiting `egress.hosts`, sidecar memory grows with the number of services in the mesh. `istioctl proxy-config all <pod> -n <ns> | wc -l` shows how much config that proxy is carrying.\n3. Single pod: check the *leak detector* panel for steady growth. A flat sawtooth is normal churn; a monotonic climb is a leak or an unbounded connection pool.\n4. Short-term relief: raise `sidecar.istio.io/proxyMemoryLimit` on the pod annotation, or the global `global.proxy.resources.limits.memory` value.\n\n{{#is_recovery}}:white_check_mark: Sidecar memory back under threshold.{{/is_recovery}}\n\n@slack-REPLACE-ME",
+  "tags": ["service:istio", "component:istio-proxy", "team:REPLACE-ME", "source:datadog-monitors-as-code"],
+  "priority": 2,
+  "options": {
+    "thresholds": { "critical": 90, "warning": 80 },
+    "notify_no_data": false,
+    "no_data_timeframe": 20,
+    "notify_audit": false,
+    "require_full_window": false,
+    "renotify_interval": 60,
+    "escalation_message": "istio-proxy in {{kube_namespace.name}}/{{pod_name.name}} is still above its memory threshold and has not recovered.",
+    "evaluation_delay": 60,
+    "new_group_delay": 300,
+    "include_tags": true,
+    "notification_preset_name": "hide_handles"
+  }
+}
