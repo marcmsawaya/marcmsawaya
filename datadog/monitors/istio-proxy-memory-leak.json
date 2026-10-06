@@ -1,0 +1,19 @@
+{
+  "name": "[Istio] istio-proxy memory growing steadily — possible leak — {{pod_name.name}}",
+  "type": "query alert",
+  "query": "pct_change(avg(last_1h),last_4h):avg:kubernetes.memory.working_set{kube_container_name:istio-proxy} by {kube_cluster_name,kube_namespace,pod_name} > 30",
+  "message": ":chart_with_upwards_trend: **istio-proxy memory is up {{value}}% versus 4 hours ago and has not levelled off.**\n\nPod: `{{kube_namespace.name}}/{{pod_name.name}}`\nCluster: `{{kube_cluster_name.name}}`\n\nThis is the early-warning monitor. It fires on the *shape* of the curve rather than on an absolute level, so it catches a leak hours before the saturation monitor would — while there is still time to roll back or restart on your own schedule rather than the OOM killer's.\n\nExpect this one to be noisier than the others. A pod that started recently is still filling its working set and will trip this legitimately; `new_group_delay` covers the first 5 minutes but not a slow warm-up. If it is noisy in your mesh, raise the threshold rather than muting it — a leak that is real will keep climbing past any threshold you set.\n\n**Triage**\n1. Confirm the climb is monotonic on the *leak detector* panel, not a sawtooth.\n2. `istioctl proxy-config all <pod> -n <ns>` — if config size grew at the same time, this is config growth, not a leak.\n3. If it is a genuine leak, note the Istio version and check the upstream issue tracker before rolling back.\n\n@slack-REPLACE-ME",
+  "tags": ["service:istio", "component:istio-proxy", "team:REPLACE-ME", "source:datadog-monitors-as-code"],
+  "priority": 3,
+  "options": {
+    "thresholds": { "critical": 30, "warning": 20 },
+    "notify_no_data": false,
+    "notify_audit": false,
+    "require_full_window": true,
+    "renotify_interval": 0,
+    "evaluation_delay": 60,
+    "new_group_delay": 300,
+    "include_tags": true,
+    "notification_preset_name": "hide_handles"
+  }
+}
