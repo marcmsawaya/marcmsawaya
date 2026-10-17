@@ -1,0 +1,11 @@
+# Private identity overlay — GPA, phone, compensation, references.
+# This repository is the public GitHub profile. This file must never be committed.
+identity/private.json
+
+# Generated application briefs. They can carry private fields via --include-private,
+# and they quote job postings verbatim.
+applications/
+
+__pycache__/
+*.pyc
+.DS_Store

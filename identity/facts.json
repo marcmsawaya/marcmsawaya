@@ -1,0 +1,124 @@
+{
+  "_note": "Canonical facts. Everything downstream reads from here. If a fact is wrong in an application, it is wrong HERE first. Fields set to null or containing TODO are unfilled — the build refuses to publish them as truth.",
+
+  "person": {
+    "full_name": "Marc Sawaya",
+    "preferred_name": "Marc",
+    "pronouns": "TODO — set this; until it is set, generated copy avoids pronouns entirely",
+    "location": "Boston, MA",
+    "open_to_relocate": true,
+    "work_authorization": "TODO — e.g. 'US citizen', 'F-1, eligible for CPT', 'requires sponsorship'",
+    "headline": "CS + Economics at Northeastern. I build web systems end to end and compete in algorithms.",
+    "one_liner": "Computer Science and Economics student at Northeastern who ships production web properties and competes at ICPC."
+  },
+
+  "contact": {
+    "email_primary": "marcmsawaya@icloud.com",
+    "email_personal": "marcsawaya2006@gmail.com",
+    "portfolio": "https://marcsawaya.info",
+    "github": "https://github.com/marcmsawaya",
+    "gitlab": "https://gitlab.com/marcmsawaya",
+    "leetcode": "https://leetcode.com/u/marcmsawaya/",
+    "icpc": "https://icpc.global/private/profile/1257288",
+    "mlh": "https://my.mlh.io/marcsawaya",
+    "linkedin": "TODO — add or delete this key",
+    "phone": "PRIVATE — see identity/private.example.json"
+  },
+
+  "education": [
+    {
+      "school": "Northeastern University",
+      "degree": "BS",
+      "majors": ["Computer Science", "Economics"],
+      "location": "Boston, MA",
+      "start": "TODO — YYYY-MM",
+      "expected_graduation": "TODO — YYYY-MM",
+      "gpa": "PRIVATE — see identity/private.example.json",
+      "coursework": ["TODO — list the courses worth naming in an application"],
+      "notes": "Northeastern runs on co-op; applications should assume a co-op cycle unless the posting says otherwise."
+    }
+  ],
+
+  "experience": [
+    {
+      "_note": "TODO — one entry per role. Delete this placeholder once real entries exist.",
+      "org": null,
+      "title": null,
+      "start": null,
+      "end": null,
+      "location": null,
+      "summary": null,
+      "tags": []
+    }
+  ],
+
+  "projects": [
+    {
+      "name": "marcsawaya.info and 8 web properties",
+      "summary": "Designed, built, and operate a portfolio plus eight live web properties — domains, deploys, and maintenance included.",
+      "url": "https://marcsawaya.info",
+      "tags": ["web", "frontend", "fullstack", "next.js", "react", "deployment", "ownership", "operations"],
+      "evidence": "Eight properties live and maintained concurrently."
+    },
+    {
+      "name": "GitHub profile README",
+      "summary": "Terminal-styled profile page with a contribution calendar rendered as a self-animating SVG — CSS-only, because GitHub's image proxy strips JavaScript.",
+      "url": "https://github.com/marcmsawaya",
+      "tags": ["python", "svg", "github-actions", "automation", "constraints"],
+      "evidence": "scripts/contrib_svg.py in this repository, refreshed on a schedule by GitHub Actions."
+    }
+  ],
+
+  "competition": {
+    "icpc": {
+      "status": "Competitor",
+      "profile": "https://icpc.global/private/profile/1257288",
+      "details": "TODO — regional, year, placement. Do not let generated copy imply a placement that is not written here."
+    },
+    "leetcode": {
+      "profile": "https://leetcode.com/u/marcmsawaya/",
+      "details": "TODO — problems solved, contest rating, if you want them cited"
+    },
+    "mlh": {
+      "profile": "https://my.mlh.io/marcsawaya",
+      "details": "TODO — hackathons attended, anything won"
+    }
+  },
+
+  "skills": {
+    "languages": ["Python", "Java", "JavaScript", "SQL", "Kotlin", "R", "Go (learning)"],
+    "web": ["React", "Next.js", "Node.js", "HTML", "CSS", "Drupal"],
+    "data": ["MySQL", "PostgreSQL", "Supabase", "Stata"],
+    "ml": ["PyTorch", "TensorFlow", "Reinforcement Learning (learning)"],
+    "tools": ["Git", "Docker", "LaTeX", "GitHub Actions"],
+    "currently_learning": ["Go", "Reinforcement Learning", "Networks & Encryption"],
+    "_note": "Order within each list is credibility order — strongest first. '(learning)' is load-bearing: it must survive into generated copy, never be upgraded to fluency."
+  },
+
+  "preferences": {
+    "_note": "Used to decide whether a role is worth applying to and how to frame the pitch.",
+    "target_roles": ["Software Engineer Co-op", "Software Engineering Intern", "Backend Engineer", "Full-Stack Engineer"],
+    "interested_in": ["systems", "backend", "distributed systems", "applied ML", "quantitative work", "developer tooling"],
+    "less_interested_in": ["TODO — being explicit here saves you from applying to the wrong things"],
+    "locations": ["Boston", "New York", "Remote", "open to relocation"],
+    "compensation": "PRIVATE — see identity/private.example.json",
+    "availability": "TODO — e.g. 'Jan–Jun 2027 co-op cycle'"
+  },
+
+  "guardrails": {
+    "_note": "Hard limits on generated copy. These are reproduced verbatim into every context pack and every application brief.",
+    "never_claim": [
+      "A degree, graduation, or credential that has not happened yet — the degree is in progress.",
+      "Years of professional experience that no entry under `experience` supports.",
+      "Fluency in anything tagged '(learning)'.",
+      "An ICPC or contest placement not written in `competition`.",
+      "Employment at, or affiliation with, any organization not listed under `experience`.",
+      "Metrics, user counts, revenue, or performance numbers not present in a project's `evidence` field."
+    ],
+    "always_do": [
+      "Prefer a specific named project over a generic adjective.",
+      "Leave a fact out rather than approximate it.",
+      "Flag every fabrication risk instead of silently filling the gap — see the OPEN QUESTIONS instruction in the brief."
+    ]
+  }
+}
