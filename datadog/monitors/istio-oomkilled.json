@@ -1,0 +1,19 @@
+{
+  "name": "[Istio] Container OOMKilled — {{kube_namespace.name}}/{{kube_container_name.name}}",
+  "type": "query alert",
+  "query": "sum(last_15m):sum:kubernetes_state.container.status_report.count.oomkilled{kube_container_name IN (istio-proxy,discovery)} by {kube_cluster_name,kube_namespace,kube_container_name}.as_count() >= 1",
+  "message": ":rotating_light: **{{kube_container_name.name}} was OOMKilled {{value}} time(s) in the last 15 minutes.**\n\nNamespace: `{{kube_namespace.name}}`\nCluster: `{{kube_cluster_name.name}}`\n\nThis fires on the kill itself rather than on a threshold, so it is the ground truth for the saturation monitors — if this fires and the saturation monitor did not, the growth was faster than the 10-minute evaluation window and the thresholds need lowering or the window shortening.\n\n**Triage**\n1. `kubectl describe pod <pod> -n {{kube_namespace.name}}` and look for `Last State: Terminated, Reason: OOMKilled`.\n2. Compare the memory graph immediately before the kill against the sustained baseline. A sharp spike points at a single large request or a burst of connections; a slow climb points at a leak or at config growth.\n3. Raising the limit is the fix only if the baseline is legitimately above the limit. If it is a leak, a higher limit just moves the kill later.\n\n@slack-REPLACE-ME",
+  "tags": ["service:istio", "component:istio-proxy", "team:REPLACE-ME", "source:datadog-monitors-as-code"],
+  "priority": 1,
+  "options": {
+    "thresholds": { "critical": 1 },
+    "notify_no_data": false,
+    "notify_audit": false,
+    "require_full_window": false,
+    "renotify_interval": 0,
+    "evaluation_delay": 60,
+    "new_group_delay": 300,
+    "include_tags": true,
+    "notification_preset_name": "hide_handles"
+  }
+}
